@@ -14,6 +14,10 @@ type CreateURLInput struct {
 	OriginalURL string `json:"url"`
 }
 
+type GetUniqueIdResponse struct {
+	UniqueID string `json:"uid"`
+}
+
 func (URL) TableName() string {
 	return "url_record"
 }

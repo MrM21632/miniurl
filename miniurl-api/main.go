@@ -11,6 +11,8 @@ import (
 func main() {
 	godotenv.Load()
 
+	miniurl.ConnectToDatabase()
+
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
