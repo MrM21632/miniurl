@@ -1,3 +1,5 @@
+drop table if exists url;
+
 create table url (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     shortened_url TEXT NOT NULL,
