@@ -453,4 +453,6 @@ sketch
 **/*.db
 **/*.env
 
+**/.npmrc
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,flask,go,node,react

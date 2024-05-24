@@ -5,6 +5,10 @@ import './App.css'
 
 import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core'
+import { Upload01Icon, hugeiconsLicense } from '@hugeicons/react-pro'
+
+console.log(import.meta.env.VITE_HUGEICONS_LICENSE_KEY)
+hugeiconsLicense(import.meta.env.VITE_HUGEICONS_LICENSE_KEY || '')
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,7 +26,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          <Upload01Icon /> count is {count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
