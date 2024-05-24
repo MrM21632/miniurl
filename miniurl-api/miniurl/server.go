@@ -40,10 +40,10 @@ func ComputeChecksum(value uint64) string {
 	salt := make([]byte, 8)
 	rand.Read(salt)
 
-	valarr := make([]byte, 8)
-	binary.LittleEndian.PutUint64(valarr, value)
+	val_arr := make([]byte, 8)
+	binary.LittleEndian.PutUint64(val_arr, value)
 
-	result := sha256.Sum256(append(valarr[:], salt[:]...))
+	result := sha256.Sum256(append(val_arr[:], salt[:]...))
 	return base62.EncodeToString(result[:])
 }
 
@@ -59,6 +59,12 @@ func CreateUrlRecord(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{})
 		return
 	}
+	encoded_checksum := ComputeChecksum(new_uid)
 
-	c.JSON(http.StatusCreated, gin.H{"shortened_url": ComputeChecksum(new_uid)})
+	result, err := WriteNewRecordToDatabase(input.OriginalURL, encoded_checksum[:8])
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{"shortened_url": result})
 }
