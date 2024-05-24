@@ -5,7 +5,6 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/json"
-	"fmt"
 	"log"
 	"miniurl/miniurl/models"
 	"net/http"
@@ -13,6 +12,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jxskiss/base62"
 )
 
 func GetUniqueId() (uint64, error) {
@@ -44,7 +44,7 @@ func ComputeChecksum(value uint64) string {
 	binary.LittleEndian.PutUint64(valarr, value)
 
 	result := sha256.Sum256(append(valarr[:], salt[:]...))
-	return fmt.Sprintf("%x", result)
+	return base62.EncodeToString(result[:])
 }
 
 func CreateUrlRecord(c *gin.Context) {
