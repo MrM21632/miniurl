@@ -60,5 +60,5 @@ func CreateUrlRecord(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"shortened_url": ComputeChecksum(new_uid)})
+	c.JSON(http.StatusCreated, gin.H{"shortened_url": ComputeChecksum(new_uid)})
 }
