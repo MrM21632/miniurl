@@ -53,15 +53,28 @@ func CreateUrlRecord(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	if found, _ := CheckForLongUrlInDatabase(input.OriginalURL); found {
+		c.JSON(http.StatusConflict, gin.H{"message": "Record with URL " + input.OriginalURL + " already exists"})
+		return
+	}
 
 	new_uid, err := GetUniqueId()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{})
 		return
 	}
-	encoded_checksum := ComputeChecksum(new_uid)
 
-	result, err := WriteNewRecordToDatabase(input.OriginalURL, encoded_checksum[:8])
+	// Keep trying to generate a new shortened_url until we get a unique one
+	var shortened_url string
+	for {
+		encoded_checksum := ComputeChecksum(new_uid)
+		shortened_url = encoded_checksum[:8]
+		if found, _ := CheckForShortUrlInDatabase(shortened_url); !found {
+			break
+		}
+	}
+
+	result, err := WriteNewRecordToDatabase(input.OriginalURL, shortened_url)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{})
 		return

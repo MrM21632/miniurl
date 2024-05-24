@@ -2,6 +2,7 @@ package main
 
 import (
 	"miniurl/miniurl"
+	"miniurl/miniurl/models"
 	"net/http"
 	"os"
 
@@ -18,10 +19,24 @@ func main() {
 	router.SetTrustedProxies(nil)
 
 	router.POST("/shorten", miniurl.CreateUrlRecord)
+	router.GET("/navigate", func(c *gin.Context) {
+		var input models.NavigateURLInput
+		if err := c.ShouldBindJSON(&input); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		record, err := miniurl.GetRecord(input.ShortenedURL)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"message": "Record not found"})
+			return
+		}
+		c.Redirect(http.StatusFound, record.OriginalURL)
+	})
 	router.GET("/listall", func(c *gin.Context) {
 		records, err := miniurl.GetAllRecords()
-		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{})
+		if err != nil || len(records) == 0 {
+			c.JSON(http.StatusNotFound, gin.H{"message": "No records found"})
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"records": records})

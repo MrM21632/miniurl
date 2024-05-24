@@ -38,6 +38,48 @@ func WriteNewRecordToDatabase(long_url string, short_url string) (*models.URL, e
 	return &new_record, nil
 }
 
+func CheckForLongUrlInDatabase(long_url string) (bool, error) {
+	found := models.URL{}
+	result := Database.Where("original_url = ?", long_url).First(&found)
+	if result.Error != nil {
+		log.Println("Error occurred during query: " + result.Error.Error())
+		return false, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return false, nil
+	}
+
+	return true, nil
+}
+
+func CheckForShortUrlInDatabase(short_url string) (bool, error) {
+	found := models.URL{}
+	result := Database.Where("shortened_url = ?", short_url).First(&found)
+	if result.Error != nil {
+		log.Println("Error occurred during query: " + result.Error.Error())
+		return false, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return false, nil
+	}
+
+	return true, nil
+}
+
+func GetRecord(shortened_url string) (*models.URL, error) {
+	var record models.URL
+	result := Database.Where("shortened_url = ?", shortened_url).First(&record)
+	if result.Error != nil {
+		log.Println("Error occurred during query: " + result.Error.Error())
+		return nil, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return nil, errors.New("record not found in database")
+	}
+
+	return &record, nil
+}
+
 func GetAllRecords() ([]models.URL, error) {
 	var records []models.URL
 	result := Database.Find(&records)

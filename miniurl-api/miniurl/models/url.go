@@ -14,6 +14,10 @@ type CreateURLInput struct {
 	OriginalURL string `json:"url"`
 }
 
+type NavigateURLInput struct {
+	ShortenedURL string `json:"shortened_url"`
+}
+
 type GetUniqueIdResponse struct {
 	UniqueID string `json:"uid"`
 }
