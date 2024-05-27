@@ -1,11 +1,7 @@
-import {
-  Link02Icon,
-  PlusSignSquareIcon,
-  Route01Icon,
-} from "@hugeicons/react-pro";
+import { PlusSignSquareIcon, Route01Icon } from "@hugeicons/react-pro";
 import { useState } from "react";
 
-import { Group, Title } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import "./index.css";
 
 const data = [
@@ -13,7 +9,7 @@ const data = [
   { link: "", label: "Navigate", icon: Route01Icon },
 ];
 
-export function NavBar() {
+export function NavBarSections() {
   const [active, setActive] = useState("Generate");
 
   const links = data.map((item) => (
@@ -33,16 +29,13 @@ export function NavBar() {
   ));
 
   return (
-    <nav className="navbar">
-      <div className="navbar-main">
-        <Group className="header" justify="space-between">
-          <Link02Icon color="var(--mantine-color-blue-5)" strokeWidth={2.5} />
-          <Title c="blue.8" order={1}>
-            MiniURL
-          </Title>
-        </Group>
-        {links}
-      </div>
-    </nav>
+    <Stack
+      align="stretch"
+      justify="flex-start"
+      gap="md"
+      style={{ marginTop: "5vh", marginLeft: "2vh", marginRight: "1vh" }}
+    >
+      {links}
+    </Stack>
   );
 }
