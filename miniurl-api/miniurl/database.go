@@ -31,9 +31,6 @@ func WriteNewRecordToDatabase(long_url string, short_url string) (*models.URL, e
 		log.Println("Error occurred during write: " + result.Error.Error())
 		return nil, result.Error
 	}
-	if result.RowsAffected == 0 {
-		return nil, errors.New("no records found")
-	}
 
 	return &new_record, nil
 }
@@ -86,6 +83,9 @@ func GetAllRecords() ([]models.URL, error) {
 	if result.Error != nil {
 		log.Println("Error occurred during read: " + result.Error.Error())
 		return nil, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return nil, errors.New("no records found")
 	}
 
 	return records, nil
