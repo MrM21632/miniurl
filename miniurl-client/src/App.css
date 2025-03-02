@@ -1,42 +1,39 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: nord --default, darknord;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+@plugin "daisyui/theme" {
+  name: "darknord";
+  default: false;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(32.44% 0.0229 264.18);
+  --color-base-200: oklch(37.92% 0.029 266.47);
+  --color-base-300: oklch(41.57% 0.0324 264.13);
+  --color-base-content: oklch(95.13% 0.0074 260.73);
+  --color-primary: oklch(59.44% 0.0772 254.03);
+  --color-primary-content: oklch(95.13% 0.0074 260.73);
+  --color-secondary: oklch(69.65% 0.0591 248.69);
+  --color-secondary-content: oklch(95.13% 0.0074 260.73);
+  --color-accent: oklch(77.46% 0.0622 217.47);
+  --color-accent-content: oklch(95.13% 0.0074 260.73);
+  --color-neutral: oklch(95.13% 0.0074 260.73);
+  --color-neutral-content: oklch(32.44% 0.0229 264.18);
+  --color-info: oklch(69.21% 0.0625 332.66);
+  --color-info-content: oklch(95.13% 0.0074 260.73);
+  --color-success: oklch(76.83% 0.0749 131.06);
+  --color-success-content: oklch(32.44% 0.0229 264.18);
+  --color-warning: oklch(85.49% 0.0892 84.09);
+  --color-warning-content: oklch(32.44% 0.0229 264.18);
+  --color-error: oklch(60.61% 0.1206 15.34);
+  --color-error-content: oklch(95.13% 0.0074 260.73);
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
 }
