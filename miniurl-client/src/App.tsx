@@ -1,15 +1,13 @@
 import "./App.css";
 
-import { Link02Icon, hugeiconsLicense } from "@hugeicons/react-pro";
 import { AppShell, MantineProvider, Title, rem } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { NavBarSections } from "./components/NavBarSections";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import { Route, Routes } from "react-router-dom";
 import { GeneratePage } from "./components/GeneratePage";
-
-console.log(import.meta.env.VITE_HUGEICONS_LICENSE_KEY);
-hugeiconsLicense(import.meta.env.VITE_HUGEICONS_LICENSE_KEY || "");
+import { Link02Icon } from "@hugeicons-pro/core-stroke-standard";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 function App() {
   const [opened] = useDisclosure();
@@ -31,7 +29,7 @@ function App() {
       >
         <AppShell.Header>
           <Title order={1}>
-            <Link02Icon color="var(--mantine-color-blue-4)" /> MiniURL
+            <HugeiconsIcon icon={Link02Icon} /> MiniURL
           </Title>
         </AppShell.Header>
         <AppShell.Navbar zIndex={0}>

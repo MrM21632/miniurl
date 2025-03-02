@@ -1,12 +1,13 @@
-import { PlusSignSquareIcon, Route01Icon } from "@hugeicons/react-pro";
+import { PlusSignSquareIcon, Route01Icon } from "@hugeicons-pro/core-stroke-standard";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
 import { Stack } from "@mantine/core";
 import "./index.css";
 
 const data = [
-  { link: "", label: "Generate", icon: PlusSignSquareIcon },
-  { link: "", label: "Navigate", icon: Route01Icon },
+  { link: "", label: "Generate", icon: <HugeiconsIcon icon={PlusSignSquareIcon} /> },
+  { link: "", label: "Navigate", icon: <HugeiconsIcon icon={Route01Icon} /> },
 ];
 
 export function NavBarSections() {
@@ -23,7 +24,7 @@ export function NavBarSections() {
         setActive(item.label);
       }}
     >
-      <item.icon className="link-icon" strokeWidth={1.5} />
+      {item.icon}
       <span>{item.label}</span>
     </a>
   ));
